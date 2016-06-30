@@ -40,5 +40,28 @@ public final class Room {
         }
     }
 
+    public void drop(String name, List<Item> inventory) {
+        Item item = Item.valueOf(name);
+        if (inventory.remove(item)) {
+            items.add(item);
+            System.out.println("You dropped " + item + ".");
+        } else {
+            System.out.println("You don't have a " + item + ".");
+        }
+    }
+
+    public void get(String name, List<Item> inventory) {
+        Item item = Item.valueOf(name);
+        if (items.remove(item)) {
+            inventory.add(item);
+            System.out.println("You got a " + item + ".");
+        } else {
+            System.out.println("There is no " + item + " here.");
+        }
+    }
+
+
+
+
 
 }

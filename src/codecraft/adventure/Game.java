@@ -66,9 +66,13 @@ public class Game {
             room.look();
         else if (command[0].equals("move"))
             room = room.move(command[1]);
-        else if (command[0].equals("inventory")) {
+        else if (command[0].equals("inventory"))
             System.out.println("You are holding " + String.join(", ", inventory.stream().map(Object::toString).collect(Collectors.toList())));
-        } else {
+        else if (command[0].equals("drop"))
+            room.drop(command[1],inventory);
+        else if (command[0].equals("get"))
+            room.get(command[1], inventory);
+        else {
             System.out.println("Huh?");
         }
         return true;
