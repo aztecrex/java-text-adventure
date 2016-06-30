@@ -8,18 +8,24 @@ import java.util.stream.Collectors;
  */
 public final class Room {
 
-    private final Map<Door,Room> passages;
+    private final Map<Door,Room> passages = new HashMap<>();
 
-    public Room(Collection<Door> doors) {
-        final HashMap<Door,Room> passages = new HashMap<>();
-        doors.forEach(d -> passages.put(d,this));
-        this.passages = Collections.unmodifiableMap(passages);
+    private final List<Item> items = new ArrayList<>();
+
+    void connect(Door via, Room to) {
+        this.passages.put(via,to);
+        to.passages.put(via.back(),this);
+    }
+
+    void add(Item item) {
+        items.add(item);
     }
 
 
     public void look() {
         System.out.println("You are in a room.");
         System.out.println("You see doors to the " + String.join(", ",passages.keySet().stream().map(Object::toString).collect(Collectors.toList())));
+        System.out.println("You see " + String.join(", ",items.stream().map(Object::toString).collect(Collectors.toList())));
     }
 
     public Room move(String direction) {
